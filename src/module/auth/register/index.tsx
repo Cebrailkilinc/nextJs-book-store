@@ -13,7 +13,6 @@ const SignUp = () => {
     const handleRedirect = () => {
         router.push('/dashboard/login'); // '/about' sayfasına yönlendirir
     };
-
     const {
         register,
         handleSubmit,
@@ -32,11 +31,11 @@ const SignUp = () => {
         console.log("burası working")
         authService.register(userRegisterData)
             .then(res => {
-                if (res.request === "201") {
-                    
-                }                
+                if (res.request.status == "201") {
+                    reset();
+                                }                
             })
-        reset();
+        
     }
 
     return (
