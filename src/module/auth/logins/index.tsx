@@ -2,6 +2,8 @@
 import React from 'react';
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
+import AuthService from '@/package/services/auth/AuthService';
+import { AuthLoginForm } from './types/types';
 
 
 type Inputs = {
@@ -12,6 +14,8 @@ type Inputs = {
 const SignIn= () => {
 
   const router = useRouter();
+  const authService = new AuthService();
+
   const handleRedirect = () => {
     router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
   };
@@ -25,6 +29,15 @@ const SignIn= () => {
   } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {  
+    const userLoginData: AuthLoginForm = {   
+      email: data.email,
+      password: data.password
+  }
+    authService.login(userLoginData).then(res => {
+          console.log(res.data)
+         
+          reset();                                  
+  })
     console.log(data)
     reset();
   }

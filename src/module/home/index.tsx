@@ -1,10 +1,24 @@
 import React from 'react'
-
+import Carousel from './components/Carousel'
+import Card from './components/Card';
+import { products } from '@/data';
+import { Book } from './types/types';
 const HomePage = () => {
   return (
-    <div className="grid grid-cols-12 gap-4 max-w-5xl mx-auto pt-96" >
-        <div className='col-span-3' >asdasd</div>
-        <div className='col-span-9'>asad</div>
+    <div className="max-w-5xl mx-auto pt-20" >
+      <div>
+        <Carousel />
+      </div>
+      <div className='grid grid-cols-4 '>
+        {
+          products.map(() => {
+            return (
+              <Card />
+            )
+          })
+        }
+
+      </div>
     </div>
   )
 }
