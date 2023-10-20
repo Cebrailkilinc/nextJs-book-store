@@ -4,21 +4,19 @@ import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 import AuthService from '@/package/services/auth/AuthService';
 import { AuthLoginForm } from './types/types';
-
+import { cookies } from 'next/headers'
+import Cookies from 'universal-cookie';
 
 type Inputs = {
   email: string
   password: string
 }
 
-const SignIn= () => {
+const SignIn = () => {
 
   const router = useRouter();
   const authService = new AuthService();
-
-  const handleRedirect = () => {
-    router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
-  };
+  const cookies = new Cookies();
 
   const {
     register,
@@ -28,16 +26,20 @@ const SignIn= () => {
     reset,
   } = useForm<Inputs>()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {  
-    const userLoginData: AuthLoginForm = {   
+  const handleRedirect = () => {
+    router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const userLoginData: AuthLoginForm = {
       email: data.email,
       password: data.password
-  }
-    authService.login(userLoginData).then(res => {
-          console.log(res.data)
-         
-          reset();                                  
-  })
+    }
+    authService.login(userLoginData).then(async res => {
+      console.log(res.data)
+      await cookies.set("token", res.data)
+      reset();
+    })
     console.log(data)
     reset();
   }
