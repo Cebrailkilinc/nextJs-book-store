@@ -1,15 +1,16 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/register/types/type'
 import AuthService from '@/package/services/auth/AuthService'
+import Cookies from 'universal-cookie'
 
 const SignUp = () => {
 
     const router = useRouter();
     const authService = new AuthService();
-
+    const cookies = new Cookies();
     const handleRedirect = () => {
         router.push('/dashboard/login'); // '/about' sayfasına yönlendirir
     };
@@ -21,7 +22,8 @@ const SignUp = () => {
         watch,
         getValues
     } = useForm<AuthRegisterForm>();
-
+    
+    
     const onSubmit: SubmitHandler<AuthRegisterForm> = (data) => {
         const userRegisterData: AuthRegisterPost = {
             username: data.fullname,

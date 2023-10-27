@@ -1,11 +1,12 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 import AuthService from '@/package/services/auth/AuthService';
 import { AuthLoginForm } from './types/types';
 import { cookies } from 'next/headers'
 import Cookies from 'universal-cookie';
+import { $auth } from '@/package/utils';
 
 type Inputs = {
   email: string
@@ -21,7 +22,6 @@ const SignIn = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm<Inputs>()
@@ -30,20 +30,26 @@ const SignIn = () => {
     router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
   };
 
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const userLoginData: AuthLoginForm = {
       email: data.email,
       password: data.password
     }
-    authService.login(userLoginData).then(async res => {
-      console.log(res.data)
-      await cookies.set("token", res.data)
-      reset();
-    })
-    console.log(data)
-    reset();
+    try {
+      authService.login(userLoginData).then(async res => {
+        if (res.data) {
+          router.push('/');
+          await cookies.set("token", res.data)
+        }
+        reset();
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
   }
-  console.log(errors.email?.message)
+
   return (
     <section className="h-screen flex justify-center items-center bg-slate-200">
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center gap-3 p-10 bg-white rounded-md w-5/6 md:w-1/3 lg:w-1/4' >

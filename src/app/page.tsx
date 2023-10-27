@@ -1,3 +1,4 @@
+
 import HomePage from '@/module/home'
 import Image from 'next/image'
 
