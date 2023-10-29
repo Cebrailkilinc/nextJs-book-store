@@ -7,27 +7,30 @@ import SignOutUser from "@/package/components/SignOutUser"
 import { cookies } from 'next/headers';
 import Cookies from 'universal-cookie';
 import Link from 'next/link';
-import { verifyJwtToken } from '../libs/auth';
+import { verifyJwtToken } from '@/package/libs/auth/index';
 import { NextResponse } from 'next/server';
-import { $auth,$cookie,$crypto } from '../utils';
+import { $auth, $cookie, $crypto } from '../utils';
+import { useAppSelector } from '@/core/hooks';
+
+import Auth from '@/module/auth';
 
 const Navbar = () => {
-    const [token, setToken] = useState(false)
+
     const router = useRouter();
     const cookies = new Cookies();
+
+    const { expired, token } = useAppSelector(data => data.counter)
 
     const handleRedirect = (path: string) => {
         router.push(path); // '/about' sayfasına yönlendirir
     };
 
-    $cookie.set("tokens", "cerbail")
-    $auth.getTokenFromCookie($cookie.get("tokens"))
-    $auth.createCookies("cebraill")
+
 
     console.log($cookie.get("bookstore.auth.token"))
     console.log($auth.getTokenFromCookie($cookie.get("bookstore.auth.token")))
-    console.log($auth.createCookies("cebraill"))
-    
+
+
     return (
         <div className='bg-gray-100  fixed w-full shadow-sm px-5 md:px-0' >
             <div className='max-w-5xl mx-auto flex justify-between items-center ' >
@@ -39,7 +42,7 @@ const Navbar = () => {
                     <SearchBox />
                 </div>
                 <div className='flex items-center gap-5'>
-                    {token ? <SignInUser /> : <SignOutUser />}
+                    <Auth/>
                     <Link href="/order" >
                         <div className='relative flex items-center gap-2 hover:text-gray-500 cursor-pointer' >
                             <img width="20" height="20" src="https://img.icons8.com/ultraviolet/40/shopping-cart.png" alt="shopping-cart" />

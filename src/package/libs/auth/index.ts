@@ -1,4 +1,3 @@
-
 export function verifyJwtToken(token: string) {
     try {
         const decoded = JSON.parse(atob(token.split('.')[1]));

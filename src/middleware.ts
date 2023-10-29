@@ -2,6 +2,7 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { isAuthPage, verifyJwtToken } from "@/package/libs/auth/index";
+import { $auth, $cookie } from './package/utils';
 
 
 const AUTH_PAGES = ["/auth/login"]
@@ -11,25 +12,26 @@ const secret = new TextEncoder().encode('cc7e0d44fd473002f1c42167459001140ec6389
 export async function middleware(request: NextRequest) {
 
     const { url, nextUrl, cookies } = request;
-    const { value: token }: { value: string | null } = cookies.get("token") ?? { value: null }
+    const token:any = cookies.get("bookstore.auth.token")?.value
 
+    const tokenEncrypt = token && $auth.getTokenFromCookie(token)
 
-    let hasVerifiedToken = token && await verifyJwtToken(token);
+    const hasVerifiedToken =  verifyJwtToken(tokenEncrypt);
     const isAuthPageRequested = isAuthPage(AUTH_PAGES, nextUrl.pathname);
-    console.log("Fonksiyonun cevabı: ", hasVerifiedToken, token)
+    console.log("Fonksiyonun cevabı: ", hasVerifiedToken, cookies.get("bookstore.auth.token")?.value )
 
     if (isAuthPageRequested) {
         if (!hasVerifiedToken) {
             return NextResponse.next();
         }
+
         const response = NextResponse.redirect(new URL('/', url))
         return response
-    }
+    }  
 
-    if (!hasVerifiedToken) {
+    if (!hasVerifiedToken) {        
         return NextResponse.redirect(new URL('/auth/login', url))
     }
-
     //NextResponse.redirect(new URL('/auth/login', url))
     // NextResponse.next()
 

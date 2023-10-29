@@ -1,12 +1,25 @@
 'use client'
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation'
-import { useForm, SubmitHandler } from "react-hook-form"
+
+//LIBS
+import { useForm, SubmitHandler } from "react-hook-form";
+
+//UTILS
+import { verifyJwtToken } from '@/package/libs/auth/index';
+
+//SERVICE
 import AuthService from '@/package/services/auth/AuthService';
+
+//TYPES
 import { AuthLoginForm } from './types/types';
-import { cookies } from 'next/headers'
-import Cookies from 'universal-cookie';
-import { $auth } from '@/package/utils';
+
+//COOKIES
+import { $auth, $cookie } from '@/package/utils';
+
+//REDUX
+import { useAppSelector, useAppDispatch } from '@/core/hooks';
+import { userLoginUpdate } from '../store/auth.slices';
 
 type Inputs = {
   email: string
@@ -17,7 +30,10 @@ const SignIn = () => {
 
   const router = useRouter();
   const authService = new AuthService();
-  const cookies = new Cookies();
+  const dispatch = useAppDispatch();
+
+  const data = useAppSelector(res => res.counter)
+
 
   const {
     register,
@@ -36,13 +52,19 @@ const SignIn = () => {
       email: data.email,
       password: data.password
     }
+
     try {
-      authService.login(userLoginData).then(async res => {
-        if (res.data) {
-          router.push('/');
-          await cookies.set("token", res.data)
+      authService.login(userLoginData).then(res => {
+        if ($cookie.get("bookstore.auth.token")) {
+          $cookie.has(res.data.token)
         }
-        reset();
+        $auth.createCookies(res.data.token)
+        const tokenVerified = verifyJwtToken(res.data.token)
+        if (res.data && tokenVerified) {
+          dispatch(userLoginUpdate(true))
+          router.push("/")
+        }
+        window.alert(tokenVerified)
       })
     } catch (error) {
       console.log(error)
