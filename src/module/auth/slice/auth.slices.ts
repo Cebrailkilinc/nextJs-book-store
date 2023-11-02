@@ -1,20 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from "@/app/redux/store";
+import { AuthResponse } from '../types/types';
 
 
-interface CounterState {
-  token: string;
-  expired: boolean
-}
-
-const initialState: CounterState = {
+const initialState: AuthResponse = {
   token: "",
   expired: false,
 };
 
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     userLoginUpdate:(state,action)=>{
@@ -24,7 +20,7 @@ export const counterSlice = createSlice({
   
 });
 
-export const { userLoginUpdate } = counterSlice.actions;
+export const { userLoginUpdate } = authSlice.actions;
 
 
-export default counterSlice.reducer;
+export default authSlice.reducer;

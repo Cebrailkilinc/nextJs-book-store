@@ -15,3 +15,9 @@ export type AuthRegisterPost = {
     email: string
     password: string   
 }
+
+export type AuthResponse = {
+    token: string;
+    expired: boolean
+  }
+  

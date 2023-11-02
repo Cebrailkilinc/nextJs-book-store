@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { $auth, $cookie} from '../../../../package/utils'
 
 import { useAppDispatch } from '@/core/hooks';
-import { userLoginUpdate } from '@/module/auth/store/auth.slices';
+import { userLoginUpdate } from '@/module/auth/slice/auth.slices';
 import { useRouter } from 'next/navigation';
 
 const dropdpwnMenu = ["Favorite", "Cart", "Logout"]

@@ -1,5 +1,5 @@
-import { AuthLoginForm } from "@/module/auth/types/authTypes";
-import { AuthRegisterPost } from "@/module/auth/register/types/type";
+import { AuthLoginForm } from "@/module/auth/types/types";
+import { AuthRegisterPost } from "@/module/auth/types/types";
 import IAuth from "@/package/services/auth/IAuthService";
 import axios, { AxiosResponse } from "axios";
 

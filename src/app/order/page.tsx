@@ -1,10 +1,10 @@
-import ProductCart from '@/module/cart/ProductCartLayout'
+import ProductCartLayout from '@/module/cart/ProductCartLayout'
 import React from 'react'
 
 const page = () => {
   return (
     <div className='pt-20' >
-      <ProductCart/>
+      <ProductCartLayout/>
     </div>
   )
 }

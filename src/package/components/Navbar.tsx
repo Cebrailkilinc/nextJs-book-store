@@ -19,7 +19,7 @@ const Navbar = () => {
     const router = useRouter();
     const cookies = new Cookies();
 
-    const { expired, token } = useAppSelector(data => data.counter)
+    const { expired, token } = useAppSelector(data => data.auth)
 
     const handleRedirect = (path: string) => {
         router.push(path); // '/about' sayfasına yönlendirir
