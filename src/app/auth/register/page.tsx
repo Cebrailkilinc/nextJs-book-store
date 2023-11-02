@@ -1,4 +1,4 @@
-import SignUp from '@/module/auth/register';
+import SignUp from '@/module/auth/Register';
 import React from 'react'
 
 const Register = () => {

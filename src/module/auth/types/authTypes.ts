@@ -1,3 +1,8 @@
+export type AuthLoginForm = {   
+    email: string
+    password: string   
+}
+
 export type AuthRegisterForm = {
     fullname: string
     email: string

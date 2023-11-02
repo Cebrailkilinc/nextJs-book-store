@@ -1,7 +1,6 @@
 import React from 'react'
 import Carousel from './components/Carousel'
 import Card from './components/Card';
-import { products } from '@/data';
 import { Book } from './types/types';
 const HomePage = () => {
   return (
@@ -10,13 +9,13 @@ const HomePage = () => {
         <Carousel />
       </div>
       <div className='grid grid-cols-4 '>
-        {
+        {/* {
           products.map(() => {
             return (
               <Card />
             )
           })
-        }
+        } */}
 
       </div>
     </div>

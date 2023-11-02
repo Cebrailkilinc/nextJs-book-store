@@ -1,4 +1,4 @@
-import SignIn from '@/module/auth/logins'
+import SignIn from '@/module/auth/Login'
 import React from 'react'
 
 

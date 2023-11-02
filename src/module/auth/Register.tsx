@@ -2,10 +2,10 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/register/types/type'
+import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/types/authTypes'
 import AuthService from '@/package/services/auth/AuthService'
 
-const SignUp = () => {
+const Register = () => {
 
     const router = useRouter();
     const authService = new AuthService();
@@ -141,5 +141,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
-
+export default Register;

@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 import AuthService from '@/package/services/auth/AuthService';
-import { AuthLoginForm } from './types/types';
+import { AuthLoginForm } from './types/authTypes';
 import { cookies } from 'next/headers'
 import Cookies from 'universal-cookie';
 
