@@ -3,8 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 import AuthService from '@/package/services/auth/AuthService';
-import { AuthLoginForm } from './types/authTypes';
-import { cookies } from 'next/headers'
+import { AuthLoginForm } from '@/module/auth/types/types';
 import Cookies from 'universal-cookie';
 
 type Inputs = {
@@ -12,7 +11,7 @@ type Inputs = {
   password: string
 }
 
-const SignIn = () => {
+const Login = () => {
 
   const router = useRouter();
   const authService = new AuthService();
@@ -107,4 +106,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn;
+export default Login;
