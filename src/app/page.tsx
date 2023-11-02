@@ -1,5 +1,4 @@
-
-import HomePage from '@/module/home'
+import HomePage from '@/module/home/HomeLayout'
 import Image from 'next/image'
 
 

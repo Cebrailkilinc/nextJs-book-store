@@ -2,11 +2,11 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/types/authTypes'
+import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/types/types'
 import AuthService from '@/package/services/auth/AuthService'
 import Cookies from 'universal-cookie'
 
-const Register = () => {
+const RegisterLayout = () => {
 
     const router = useRouter();
     const authService = new AuthService();
@@ -143,4 +143,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default RegisterLayout;

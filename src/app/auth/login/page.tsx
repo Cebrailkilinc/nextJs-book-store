@@ -1,11 +1,10 @@
-import SignIn from '@/module/auth/Login'
 import React from 'react'
-
+import LoginLayout from '@/module/auth/LoginLayout'
 
 const Login = () => {
   return (
     <div>
-      <SignIn/>
+      <LoginLayout/>
     </div>
   )
 }

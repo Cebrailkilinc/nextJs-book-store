@@ -1,10 +1,11 @@
-import SignUp from '@/module/auth/Register';
 import React from 'react'
+import RegisterLayout from '@/module/auth/RegisterLayout';
+
 
 const Register = () => {
     return (
         <section>
-            <SignUp/>
+            <RegisterLayout/>
         </section>
     )
 }

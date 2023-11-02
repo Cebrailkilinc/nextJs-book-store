@@ -1,7 +1,7 @@
 import React from 'react'
 import Counter from './components/Counter'
 
-const ProductDetail = () => {
+const ProductDetailLayout: React.FC = () => {
     return (
         <section className="text-gray-700 body-font overflow-hidden bg-white">
             <div className="container px-5 py-24 mx-auto">
@@ -71,4 +71,4 @@ const ProductDetail = () => {
     )
 }
 
-export default ProductDetail
+export default ProductDetailLayout; 

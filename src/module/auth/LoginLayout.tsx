@@ -6,30 +6,24 @@ import AuthService from '@/package/services/auth/AuthService';
 import { AuthLoginForm } from '@/module/auth/types/types';
 import Cookies from 'universal-cookie';
 
-type Inputs = {
-  email: string
-  password: string
-}
-
-const Login = () => {
-
+const LoginLayout = () => {
+  
   const router = useRouter();
   const authService = new AuthService();
   const cookies = new Cookies();
 
   const {
     register,
-    handleSubmit,
-    watch,
+    handleSubmit, 
     formState: { errors },
     reset,
-  } = useForm<Inputs>()
+  } = useForm<AuthLoginForm >()
 
   const handleRedirect = () => {
     router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<AuthLoginForm > = (data) => {
     const userLoginData: AuthLoginForm = {
       email: data.email,
       password: data.password
@@ -106,4 +100,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default LoginLayout;

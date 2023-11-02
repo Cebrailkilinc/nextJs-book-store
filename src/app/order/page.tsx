@@ -1,4 +1,4 @@
-import ProductCart from '@/module/cart'
+import ProductCart from '@/module/cart/ProductCartLayout'
 import React from 'react'
 
 const page = () => {

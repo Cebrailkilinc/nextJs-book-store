@@ -1,4 +1,4 @@
-import ProductDetail from '@/module/productDetail'
+import ProductDetail from '@/module/productDetail/ProductDetailLayout '
 import React from 'react'
 
 const page = ({ params }: { params: { product: string } }) => {

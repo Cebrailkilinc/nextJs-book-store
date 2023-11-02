@@ -12,7 +12,7 @@ import { NextResponse } from 'next/server';
 import { $auth, $cookie, $crypto } from '../utils';
 import { useAppSelector } from '@/core/hooks';
 
-import Auth from '@/module/auth';
+
 
 const Navbar = () => {
 
@@ -40,9 +40,9 @@ const Navbar = () => {
                 </div>
                 <div>
                     <SearchBox />
-                </div>
-                <div className='flex items-center gap-5'>
-                    <Auth/>
+                </div>                
+                <div className='flex items-center gap-5'>   
+                <SignOutUser/>                 
                     <Link href="/order" >
                         <div className='relative flex items-center gap-2 hover:text-gray-500 cursor-pointer' >
                             <img width="20" height="20" src="https://img.icons8.com/ultraviolet/40/shopping-cart.png" alt="shopping-cart" />
