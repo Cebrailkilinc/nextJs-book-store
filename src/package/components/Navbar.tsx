@@ -1,34 +1,20 @@
 'use client'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation'
 import SearchBox from "@/package/components/SearchBox";
-import SignInUser from './SignInUser';
-import SignOutUser from "@/package/components/SignOutUser"
-import { cookies } from 'next/headers';
-import Cookies from 'universal-cookie';
+import SignOutUser from "@/package/components/SignOutUser";
 import Link from 'next/link';
-import { verifyJwtToken } from '@/package/libs/auth/index';
-import { NextResponse } from 'next/server';
-import { $auth, $cookie, $crypto } from '../utils';
+import { $auth, $cookie } from '../utils';
 import { useAppSelector } from '@/core/hooks';
 
 
 
 const Navbar = () => {
-
     const router = useRouter();
-    const cookies = new Cookies();
-
-    const { expired, token } = useAppSelector(data => data.auth)
 
     const handleRedirect = (path: string) => {
         router.push(path); // '/about' sayfasına yönlendirir
-    };
-
-
-
-    console.log($cookie.get("bookstore.auth.token"))
-    console.log($auth.getTokenFromCookie($cookie.get("bookstore.auth.token")))
+    };  
 
 
     return (

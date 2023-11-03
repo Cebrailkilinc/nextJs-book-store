@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { MdFavoriteBorder,MdFavorite } from "react-icons/md"
+import { MdFavoriteBorder} from "react-icons/md"
 import { useRouter } from 'next/navigation'
 
 const Card = () => {

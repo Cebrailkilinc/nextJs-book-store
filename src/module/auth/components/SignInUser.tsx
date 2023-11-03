@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { $auth, $cookie} from '../../../../package/utils'
+import { $cookie} from '@/package/utils/index';
 
 import { useAppDispatch } from '@/core/hooks';
 import { userLoginUpdate } from '@/module/auth/slice/auth.slices';
@@ -10,9 +10,7 @@ const dropdpwnMenu = ["Favorite", "Cart", "Logout"]
 const SignInUser = () => {
     
     const router = useRouter();    
-    const dispatch = useAppDispatch(); 
-
-    
+    const dispatch = useAppDispatch();     
 
     const handleDropMenu = (item: string) => {
         if (item === "Logout") {

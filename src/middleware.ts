@@ -1,12 +1,11 @@
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { isAuthPage, verifyJwtToken } from "@/package/libs/auth/index";
-import { $auth, $cookie } from './package/utils';
+import { $auth } from './package/utils';
 
 
 const AUTH_PAGES = ["/auth/login"]
-const secret = new TextEncoder().encode('cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',)
+//const secret = new TextEncoder().encode('cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',)
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {

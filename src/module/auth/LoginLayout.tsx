@@ -2,39 +2,53 @@
 import React from 'react';
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
+
+//Services
 import AuthService from '@/package/services/auth/AuthService';
+//Types
 import { AuthLoginForm } from '@/module/auth/types/types';
-import Cookies from 'universal-cookie';
+//Cookies
+import { $auth, $cookie } from '@/package/utils';
+import { verifyJwtToken } from '@/package/libs/auth';
+
 
 const LoginLayout = () => {
-  
+
   const router = useRouter();
   const authService = new AuthService();
-  const cookies = new Cookies();
 
   const {
     register,
-    handleSubmit, 
+    handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<AuthLoginForm >()
+  } = useForm<AuthLoginForm>()
 
   const handleRedirect = () => {
     router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
   };
 
-  const onSubmit: SubmitHandler<AuthLoginForm > = (data) => {
+  const onSubmit: SubmitHandler<AuthLoginForm> = (data) => {
+
     const userLoginData: AuthLoginForm = {
       email: data.email,
       password: data.password
     }
+
     authService.login(userLoginData).then(async res => {
-      console.log(res.data)
-      await cookies.set("token", res.data)
-      reset();
+      console.log(verifyJwtToken(res.data.token))
+      try {
+        if (res.data.token && res.data.success ) {
+          if (verifyJwtToken(res.data.token)) {
+            $auth.createCookies(res.data.token)
+            router.push('/')
+          }
+        }
+        reset();
+      } catch (error) {
+        console.log(error)
+      }
     })
-    console.log(data)
-    reset();
   }
   console.log(errors.email?.message)
   return (
