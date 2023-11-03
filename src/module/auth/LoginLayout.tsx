@@ -44,9 +44,11 @@ const LoginLayout = () => {
             router.push('/')
           }
         }
+        console.log(res.data)
         reset();
       } catch (error) {
         console.log(error)
+        window.alert(error)
       }
     })
   }

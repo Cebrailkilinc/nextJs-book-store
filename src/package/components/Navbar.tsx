@@ -6,8 +6,7 @@ import SignOutUser from "@/package/components/SignOutUser";
 import Link from 'next/link';
 import { $auth, $cookie } from '../utils';
 import { useAppSelector } from '@/core/hooks';
-
-
+import Auth from './Auth';
 
 const Navbar = () => {
     const router = useRouter();
@@ -15,7 +14,6 @@ const Navbar = () => {
     const handleRedirect = (path: string) => {
         router.push(path); // '/about' sayfasına yönlendirir
     };  
-
 
     return (
         <div className='bg-gray-100  fixed w-full shadow-sm px-5 md:px-0' >
@@ -28,7 +26,7 @@ const Navbar = () => {
                     <SearchBox />
                 </div>                
                 <div className='flex items-center gap-5'>   
-                <SignOutUser/>                 
+                <Auth/>                 
                     <Link href="/order" >
                         <div className='relative flex items-center gap-2 hover:text-gray-500 cursor-pointer' >
                             <img width="20" height="20" src="https://img.icons8.com/ultraviolet/40/shopping-cart.png" alt="shopping-cart" />

@@ -1,15 +1,12 @@
 import React from 'react'
-import Cookies from 'universal-cookie'
-
+import { $cookie } from '../utils'
 
 const dropdpwnMenu = ["Favorite", "Cart", "Logout"]
 const SignInUser = () => {
-
-    const cookies = new Cookies();
+   
     const handleDropMenu = (item:string)=>{
         if (item ==="Logout") {
-            cookies.remove("token")
-            console.log("first")
+           $cookie.del("bookstore.auth.token")
         }
     }
   
