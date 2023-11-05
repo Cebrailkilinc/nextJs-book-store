@@ -1,15 +1,17 @@
 import React from 'react'
 import { $cookie } from '../utils'
-
+import { useRouter } from 'next/navigation'
 const dropdpwnMenu = ["Favorite", "Cart", "Logout"]
 const SignInUser = () => {
-   
-    const handleDropMenu = (item:string)=>{
-        if (item ==="Logout") {
-           $cookie.del("bookstore.auth.token")
+    const router = useRouter();
+    const handleDropMenu = (item: string) => {
+        if (item === "Logout") {
+            $cookie.del("bookstore.auth.account")         
+            
+            router.push("/")
         }
     }
-  
+
     return (
         <div className='flex items-center gap-2' >
             <div>
@@ -27,7 +29,7 @@ const SignInUser = () => {
                     <ul className='text-xs flex flex-col gap-1' >
                         {
                             dropdpwnMenu && dropdpwnMenu.map((item, i) => {
-                                return <li key={i} onClick={()=>handleDropMenu(item)} className='hover:text-slate-800 cursor-pointer hover:bg-red-200 rounded-sm px-5 py-1'>{item}</li>
+                                return <li key={i} onClick={() => handleDropMenu(item)} className='hover:text-slate-800 cursor-pointer hover:bg-red-200 rounded-sm px-5 py-1'>{item}</li>
                             })
                         }
                     </ul>

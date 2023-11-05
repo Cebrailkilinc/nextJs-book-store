@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/types/types'
 import AuthService from '@/package/services/auth/AuthService'
 import Cookies from 'universal-cookie'
+import { $auth, $cookie } from '@/package/utils'
 
 const RegisterLayout = () => {
 
@@ -22,22 +23,25 @@ const RegisterLayout = () => {
         watch,
         getValues
     } = useForm<AuthRegisterForm>();
-    
-    
+
+
     const onSubmit: SubmitHandler<AuthRegisterForm> = (data) => {
         const userRegisterData: AuthRegisterPost = {
             username: data.fullname,
             email: data.email,
             password: data.password
-        }
-        console.log("burası working")
+        }        
         authService.register(userRegisterData)
             .then(res => {
-                if (res.request.status == "201") {
-                    reset();
-                                }                
+                if (res.data) {
+                    console.log(res.data)
+                    $auth.createCookies(res.data.token)
+                    $cookie.set("username", res.data.username)
+                    router.push('/')
+                }               
+                reset();
             })
-        
+
     }
 
     return (

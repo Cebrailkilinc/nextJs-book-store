@@ -18,6 +18,7 @@ export type AuthRegisterPost = {
 
 export type AuthResponse = {
     token: string;
-    expired: boolean
+    expired: boolean;
+    loginSuccess:boolean;
   }
   

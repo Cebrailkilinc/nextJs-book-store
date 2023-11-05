@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 
@@ -11,11 +11,20 @@ import { AuthLoginForm } from '@/module/auth/types/types';
 import { $auth, $cookie } from '@/package/utils';
 import { verifyJwtToken } from '@/package/libs/auth';
 
+import { Alert, Button, Input, message } from 'antd';
+import { userLoginUpdate } from './slice/auth.slices';
+import { useAppDispatch } from '@/core/hooks';
 
 const LoginLayout = () => {
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const authService = new AuthService();
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const tokenFromCookie = $auth.getTokenFromCookie($cookie.get("bookstore.auth.token")) ?? '';
+  const tokenVerified = verifyJwtToken(tokenFromCookie);
 
   const {
     register,
@@ -28,36 +37,61 @@ const LoginLayout = () => {
     router.push('/dashboard/register'); // '/about' sayfasına yönlendirir
   };
 
-  const onSubmit: SubmitHandler<AuthLoginForm> = (data) => {
+  const info = () => {
+    messageApi.info('Hello, Ant Design!');
+  };
 
+  // console.log($cookie.get("bookstore.auth.token"))  $cookie.get("bookstore.auth.token") => sifrelenmis token
+  // $auth.getAccountFromCookie("bookstore.auth.token") => sifresi cozulmus token
+
+  //If token is not verified delet token...
+  useLayoutEffect(() => {
+    if (!verifyJwtToken(tokenFromCookie)) {
+      $cookie.del("bookstore.auth.token");
+      router.push('/auth/login');
+    }
+  }, []);
+
+
+  const onSubmit: SubmitHandler<AuthLoginForm> = (data) => {
     const userLoginData: AuthLoginForm = {
       email: data.email,
       password: data.password
     }
-
     authService.login(userLoginData).then(async res => {
-      console.log(verifyJwtToken(res.data.token))
+      console.log(verifyJwtToken(res.data?.token))
+      console.log(res.data)
+      console.log(userLoginData)
       try {
-        if (res.data.token && res.data.success ) {
-          if (verifyJwtToken(res.data.token)) {
+        if (res.data.success) {
+          if (verifyJwtToken(res.data?.token)) {
+            dispatch(userLoginUpdate(res.data?.success))
             $auth.createCookies(res.data.token)
+            $cookie.set("username", res.data.username)
+            console.log(res.data)
+            info()
             router.push('/')
           }
+          if (tokenFromCookie && !tokenVerified) {
+
+          }
         }
-        console.log(res.data)
-        reset();
       } catch (error) {
+        reset();
         console.log(error)
         window.alert(error)
       }
     })
   }
-  console.log(errors.email?.message)
+
   return (
     <section className="h-screen flex justify-center items-center bg-slate-200">
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center gap-3 p-10 bg-white rounded-md w-5/6 md:w-1/3 lg:w-1/4' >
-        <h1 className='text-5xl text-gray-500'>Login</h1>
-        <div className='flex flex-col text-sm w-full mt-2' >
+      {contextHolder}
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center gap-3 px-12 py-5 bg-white rounded-md w-5/6 md:w-1/4' >
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 40 40">
+          <path fill="none" stroke="#4788c7" strokeMiterlimit="10" strokeWidth="2" d="M30,17.714c0,0,0-5.306,0-5.714 c0-5.523-4.477-10-10-10S10,6.477,10,12c0,0.408,0,5.714,0,5.714"></path><path fill="#dff0fe" d="M2.5,37.5V22c0-3.584,2.916-6.5,6.5-6.5h22c3.584,0,6.5,2.916,6.5,6.5v15.5H2.5z"></path><path fill="#4788c7" d="M31,16c3.308,0,6,2.692,6,6v15H3V22c0-3.308,2.692-6,6-6H31 M31,15H9c-3.866,0-7,3.134-7,7v16h36V22 C38,18.134,34.866,15,31,15L31,15z"></path><g><path fill="#b6dcfe" d="M17.59,32.5l0.891-5.343l-0.289-0.176C17.133,26.336,16.5,25.222,16.5,24c0-1.93,1.57-3.5,3.5-3.5 s3.5,1.57,3.5,3.5c0,1.222-0.633,2.336-1.691,2.981l-0.289,0.176L22.41,32.5H17.59z"></path><path fill="#4788c7" d="M20,21c1.654,0,3,1.346,3,3c0,1.046-0.543,2.001-1.452,2.554l-0.578,0.352l0.111,0.667L21.82,32 H18.18l0.738-4.427l0.111-0.667l-0.578-0.352C17.543,26.001,17,25.046,17,24C17,22.346,18.346,21,20,21 M20,20 c-2.209,0-4,1.791-4,4c0,1.449,0.778,2.707,1.932,3.408L17,33h6l-0.932-5.592C23.222,26.707,24,25.449,24,24 C24,21.791,22.209,20,20,20L20,20z"></path></g>
+        </svg>
+        <div className='flex flex-col text-[8px] w-full mt-2' >
           <input
             {...register("email", {
               required: "Email is required!",
@@ -68,9 +102,9 @@ const LoginLayout = () => {
             })}
             type='email'
             placeholder='Email'
-            className={`border ${errors.email && "border-red-500"} outline-none text-xs px-2 py-2`} />
+            className={`border ${errors.email && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-[5px]`} />
         </div>
-        <div className='flex flex-col text-sm w-full' >
+        <div className='flex flex-col text-[8px] w-full' >
           <input {...register("password", {
             required: "Password is required!",
             minLength: {
@@ -81,15 +115,19 @@ const LoginLayout = () => {
               value: 20,
               message: "max length is 20!",
             },
-          })} type='password' placeholder='Password' className={`border ${errors.password && "border-red-500"} outline-none text-xs px-2 py-2`} />
+          })} type='password' placeholder='Password' className={`border ${errors.password && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-[5px]`} />
         </div>
         <div className='flex flex-col items-center text-sm w-full' >
-          <button type='submit' className='border w-full px-3 py-2 mt-2 rounded-sm bg-blue-500 hover:bg-opacity-80 text-white text-xs' >Login</button>
+          <Button style={{ paddingBottom: "4px" }} size='small' htmlType='submit' type='default' className='w-full bg-blue-500 hover:bg-blue-100 text-white rounded-sm ' >login</Button>
         </div>
-        <p className='text-[10px] h-4 text-red-700 flex flex-col justify-start w-full px-1' >
-          {errors.email && <span role="alert">{errors.email.message}</span>}
-          {errors.password && <span className='' >{errors.password.message}</span>}
-        </p>
+        <div className='flex flex-col gap-1 w-full h-10' >
+          {
+            errors.email && <Alert style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} message={errors.email.message} type="error" />
+          }
+          {
+            errors.password && <Alert style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} message={errors.password.message} type="error" />
+          }
+        </div>
         <div className='flex items-center justify-center w-full gap-3 text-xs' >
           <div className='w-full border-b ' ></div>
           <p>Or</p>
@@ -108,7 +146,7 @@ const LoginLayout = () => {
             </svg>
           </div>
         </div>
-        <div className='flex items-center justify-center text-xs gap-1' >
+        <div className='flex items-center justify-center text-[10px] gap-1' >
           Don't have an account?<h6 onClick={handleRedirect} className='text-orange-400 hover:text-opacity-80 cursor-pointer' >Register</h6>
         </div>
       </form>

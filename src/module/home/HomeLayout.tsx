@@ -1,14 +1,17 @@
 import React from 'react'
-import Carousel from './components/Carousel'
+import CarouselLayout from "@/module/home/components/Carousel";
+
 
 const HomeLayout: React.FC = () => {
+  
   return (
-    <div className="max-w-5xl mx-auto pt-20" >
+    <div className='home-bg' >
       <div>
-        <Carousel />
+        
       </div>
-      <div className='grid grid-cols-4 '>
-        {/* {
+      <div className="max-w-5xl mx-auto pt-1">'./asset/bookstore.jpg'
+        <div className='grid grid-cols-4 '>
+          {/* {
           products.map(() => {
             return (
               <Card />
@@ -16,6 +19,7 @@ const HomeLayout: React.FC = () => {
           })
         } */}
 
+        </div>
       </div>
     </div>
   )
