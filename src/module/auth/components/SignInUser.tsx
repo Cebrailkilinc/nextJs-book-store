@@ -3,7 +3,7 @@ import React from 'react'
 import { $cookie} from '@/package/utils/index';
 
 import { useAppDispatch } from '@/core/hooks';
-import { userLoginUpdate } from '@/module/auth/slice/auth.slices';
+import { userLoginUpdate,messageControl,alertControl } from '@/module/auth/slice/auth.slices';
 import { useRouter } from 'next/navigation';
 
 const dropdpwnMenu = ["Favorite", "Cart", "Logout"]
@@ -13,12 +13,14 @@ const SignInUser = () => {
     const dispatch = useAppDispatch();
     const username = $cookie.get("username") ?? ""    
 
-    const handleDropMenu = (item: string) => {
+    const handleDropMenu = (item: string,e:any) => {      
         if (item === "Logout") {
             $cookie.del("bookstore.auth.token");
-            dispatch(userLoginUpdate(false))
-            location.reload();
+            dispatch(messageControl("Çıkış yapılıyor."))
+            dispatch(alertControl(true))
+            dispatch(userLoginUpdate(false))       
             router.push('/');            
+            location.reload();
         }
     }
 
@@ -39,7 +41,7 @@ const SignInUser = () => {
                     <ul className='text-xs flex flex-col gap-1' >
                         {
                             dropdpwnMenu && dropdpwnMenu.map((item, i) => {
-                                return <li key={i} onClick={() => handleDropMenu(item)} className='hover:text-slate-800 cursor-pointer hover:bg-red-200 rounded-sm px-5 py-1'>{item}</li>
+                                return <li key={i} onClick={(e) => handleDropMenu(item,e)} className='hover:text-slate-800 cursor-pointer hover:bg-red-200 rounded-sm px-5 py-1'>{item}</li>
                             })
                         }
                     </ul>

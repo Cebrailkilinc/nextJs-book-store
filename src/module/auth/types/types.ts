@@ -20,5 +20,7 @@ export type AuthResponse = {
     token: string;
     expired: boolean;
     loginSuccess:boolean;
+    message:string
+    
   }
   

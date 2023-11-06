@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import Navbar from '@/package/components/Navbar'
 import { Providers } from './providers'
 import Alert from '@/package/components/Alert'
+import "antd/dist/reset.css";
+import 'antd/dist/antd.css'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -28,7 +28,7 @@ const Navbar = () => {
             <div className='max-w-5xl mx-auto flex justify-between items-center ' >
                 <div onClick={() => handleRedirect("/")} className='flex items-center gap-3 cursor-pointer' >
                     <img width="16" height="16" src="https://img.icons8.com/officel/16/homework.png" alt="homework" />
-                    <h1>BookStore</h1>
+                    <h1 className='text-sm' >BookStore</h1>
                 </div>
                 <div>
                     <SearchBox />

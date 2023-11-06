@@ -7,7 +7,8 @@ import { $auth, $cookie } from '@/package/utils';
 const initialState: AuthResponse = {
   token: "",
   expired: false,
-  loginSuccess: true
+  loginSuccess: false,
+  message:""
 };
 
 
@@ -21,7 +22,11 @@ export const authSlice = createSlice({
       
     },
 
-    closeAlert:(state, action) => {
+    messageControl:(state, action)=>{
+      state.message = action.payload
+    },
+
+    alertControl:(state, action) => {
       state.loginSuccess = action.payload
     },
 
@@ -29,7 +34,7 @@ export const authSlice = createSlice({
 
 });
 
-export const { userLoginUpdate, closeAlert } = authSlice.actions;
+export const { userLoginUpdate, alertControl,messageControl } = authSlice.actions;
 
 
 export default authSlice.reducer;
