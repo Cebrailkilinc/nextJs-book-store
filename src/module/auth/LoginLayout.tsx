@@ -11,7 +11,6 @@ import { AuthLoginForm } from '@/module/auth/types/types';
 import { $auth, $cookie } from '@/package/utils';
 import { verifyJwtToken } from '@/package/libs/auth';
 
-import { Alert, Button, Input, message, Spin } from 'antd';
 import { alertControl, userLoginUpdate, messageControl } from './slice/auth.slices';
 import { useAppDispatch } from '@/core/hooks';
 import "antd/dist/antd"
@@ -119,16 +118,16 @@ const LoginLayout = () => {
           })} type='password' placeholder='Password' className={`border ${errors.password && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-2`} />
         </div>
         <div className='flex flex-col items-center text-sm w-full' >
-          <Button htmlType='submit' type='primary' className='w-full  ' >
-            {loading ? <Spin /> : "Giriş Yap"}
-          </Button>
+          <button type='submit' className='w-full  hover:bg-blue-100 text-indigo-700 font-semibold rounded-sm ' >
+            {loading ? <div>Yükleniyor</div> : "Giriş Yap"}
+          </button>
         </div>
         <div className='flex flex-col gap-1 w-full h-10' >
           {
-            errors.email && <Alert style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} message={errors.email.message} type="error" />
+            errors.email && <span style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }}  >{errors.email.message}</span>
           }
           {
-            errors.password && <Alert style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} message={errors.password.message} type="error" />
+            errors.password && <span style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} >{errors.password.message}</span>
           }
         </div>
         <div className='flex items-center justify-center w-full gap-3 text-xs' >

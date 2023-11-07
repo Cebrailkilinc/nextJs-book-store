@@ -4,8 +4,7 @@ import { Inter } from 'next/font/google'
 import Navbar from '@/package/components/Navbar'
 import { Providers } from './providers'
 import Alert from '@/package/components/Alert'
-import "antd/dist/reset.css";
-import 'antd/dist/antd.css'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,11 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>          
-          <Navbar />
-          <Alert/>
-          {children}
-        </Providers>
+     
+     
+          <Providers>
+            <Navbar />
+            <Alert />
+            {children}
+          </Providers>
+       
       </body>
     </html>
   )

@@ -1,15 +1,17 @@
 "use client"
-import React from 'react'
-import { Alert, Button, Checkbox, Form, Input, Spin } from 'antd';
-import FormItem from 'antd/es/form/FormItem';
+import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthLoginForm } from '@/module/auth/types/types';
 import { AddBook } from './types';
-import FileUploads from './components/FileUploads';
-
+import { Button } from '@chakra-ui/react';
 
 
 const AdminPageLayout = () => {
+    const [activeMenuItem, setActiveMenuItem] = useState(''); // Varsayılan olarak hiçbiri seçili değil
+
+    const handleMenuItemClick = (item: string) => {
+        setActiveMenuItem(item);
+    };
 
     const {
         register,
@@ -18,26 +20,41 @@ const AdminPageLayout = () => {
         reset,
     } = useForm<AddBook>()
 
-
     const onSubmit: SubmitHandler<AddBook> = (data) => {
-
         console.log(data)
-
     }
 
     return (
         <div className='grid grid-cols-12 gap-5 max-w-5xl mx-auto pt-20' >
-            <div className='col-span-2 '  >
-               <ul>
-                <li>Users</li>
-                <li>Customers</li>
-                <li>Add Product</li>
-                <li>Add Product</li>
-                <li>Add Product</li>
-               </ul>
+            <div className="col-span-2 text-sm bg-slate-100 p-5 rounded-sm">
+                <ul className="flex flex-col gap-5">
+                    <li
+                        className={`cursor-pointer px-3 py-2 ${activeMenuItem === 'users' ? 'bg-slate-200' : 'hover:bg-slate-200'}`}
+                        onClick={() => handleMenuItemClick('users')}
+                    >
+                        Users
+                    </li>
+                    <li
+                        className={`cursor-pointer px-3 py-2 ${activeMenuItem === 'customers' ? 'bg-slate-200' : 'hover:bg-slate-200'}`}
+                        onClick={() => handleMenuItemClick('customers')}
+                    >
+                        Customers
+                    </li>
+                    <li
+                        className={`cursor-pointer px-3 py-2 ${activeMenuItem === 'addProduct' ? 'bg-slate-200' : 'hover:bg-slate-200'}`}
+                        onClick={() => handleMenuItemClick('addProduct')}
+                    >
+                        Add Product
+                    </li>
+                    <li
+                        className={`cursor-pointer px-3 py-2 ${activeMenuItem === 'allProducts' ? 'bg-slate-200' : 'hover:bg-slate-200'}`}
+                        onClick={() => handleMenuItemClick('allProducts')}
+                    >
+                        All Products
+                    </li>
+                </ul>
             </div>
-
-            <div className=' col-span-10  ' >
+            <div className='col-span-10 ' >
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2' >
                     <div className='flex flex-col text-[8px] w-full mt-1' >
                         <h1 className='text-xs' >Book Name:</h1>
@@ -101,12 +118,13 @@ const AdminPageLayout = () => {
                     </div>
                     <div className='flex flex-col text-[8px] w-full mt-1'>
                         <h1 className='text-xs mb-1'>Book Image:</h1>
-                        <FileUploads />
+                        
                     </div>
                     <div className='flex flex-col items-center text-sm w-full mt-5'>
-                        <Button htmlType='submit' type='default' className='w-full  hover:bg-blue-100 text-indigo-700 font-semibold rounded-sm '>
+                        <button type='submit'  className='w-full  hover:bg-blue-100 text-indigo-700 font-semibold rounded-sm '>
                             {"Ürün Ekle"}
-                        </Button>
+                        </button>
+                        <Button colorScheme='blue'>ceboo</Button>
                     </div>
                 </form>
             </div >
