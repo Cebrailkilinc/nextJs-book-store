@@ -13,7 +13,8 @@ import { verifyJwtToken } from '@/package/libs/auth';
 
 import { alertControl, userLoginUpdate, messageControl } from './slice/auth.slices';
 import { useAppDispatch } from '@/core/hooks';
-import "antd/dist/antd"
+import { Button } from '@chakra-ui/react';
+
 const LoginLayout = () => {
 
   const router = useRouter();
@@ -118,9 +119,19 @@ const LoginLayout = () => {
           })} type='password' placeholder='Password' className={`border ${errors.password && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-2`} />
         </div>
         <div className='flex flex-col items-center text-sm w-full' >
-          <button type='submit' className='w-full  hover:bg-blue-100 text-indigo-700 font-semibold rounded-sm ' >
-            {loading ? <div>Yükleniyor</div> : "Giriş Yap"}
-          </button>
+        
+          <Button
+            isLoading={loading}
+            loadingText='Loading'
+            colorScheme='purple'
+            variant='outline'
+            spinnerPlacement='start'
+            type='submit'
+            width='100%'
+            size={'sm'}
+          >
+            Submit
+          </Button>
         </div>
         <div className='flex flex-col gap-1 w-full h-10' >
           {

@@ -6,6 +6,7 @@ import { Providers } from './providers'
 import Alert from '@/package/components/Alert'
 import { ChakraProvider } from '@chakra-ui/react'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,15 +21,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link href="/public/output.css" rel="stylesheet" />
+      </head>
       <body className={inter.className}>
-     
-     
-          <Providers>
-            <Navbar />
-            <Alert />
-            {children}
-          </Providers>
-       
+
+        <Providers>
+          <Navbar />
+          <Alert />
+          {children}
+        </Providers>
+
       </body>
     </html>
   )
