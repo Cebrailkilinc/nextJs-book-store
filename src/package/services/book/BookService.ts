@@ -1,15 +1,19 @@
 import axios from "axios";
 import IBookService from "./IBookService";
+import { alertControl, messageControl } from "@/module/auth/slice/auth.slices";
+import { useAppDispatch } from "@/core/hooks";
 
 export default class BookService implements IBookService {
-    async getAllBooks() {
-        // getAllBooks işlemini düzgün bir şekilde gerçekleştirin ve veriyi döndürün
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/book/all`); // URL'i doğru bir şekilde ayarlayın
-        return response.data;
+
+    async addBook(book: any){
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/book/add`, book)          
+        return response;
     }
 
-    async getUser() {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/todos");
+    async getAllBooks() {
+        // get all books 
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/book/all`);
         return response.data;
     }
 }
+

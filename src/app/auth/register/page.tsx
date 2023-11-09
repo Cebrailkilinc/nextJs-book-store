@@ -1,6 +1,7 @@
 import React from 'react'
-import RegisterLayout from '@/module/auth/RegisterLayout';
+import dynamic from 'next/dynamic'
 
+const RegisterLayout= dynamic(() => import('@/module/auth/RegisterLayout'))
 
 const Register = () => {
     return (

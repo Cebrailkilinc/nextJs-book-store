@@ -4,8 +4,12 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthLoginForm } from '@/module/auth/types/types';
 import { AddBook } from '@/module/admin/types/index';
 import { Button, Input } from '@chakra-ui/react';
-
+import { addNewBook } from '@/package/services/book';
+import { alertControl, alertTypeControl, messageControl } from '@/module/auth/slice/auth.slices';
+import { useAppDispatch } from '@/core/hooks';
+import Alert from "@/package/components/Alert"
 const AddProduct = () => {
+    const dispatch = useAppDispatch();
     const {
         register,
         handleSubmit,
@@ -14,6 +18,19 @@ const AddProduct = () => {
     } = useForm<AddBook>()
 
     const onSubmit: SubmitHandler<AddBook> = (data) => {
+        addNewBook(data).then(res => {
+            
+            dispatch(messageControl("Kitap Eklendi!"))
+            dispatch(alertControl(true))
+            dispatch(alertTypeControl("success"))
+
+        }).catch(errors => {
+            dispatch(messageControl("Kitap Eklenemedi!!!"))
+            dispatch(alertControl(true))
+            dispatch(alertTypeControl("error"))
+        })
+
+
         console.log(data)
     }
     return (
@@ -22,13 +39,13 @@ const AddProduct = () => {
                 <div className='flex flex-col text-[8px] w-full mt-1' >
                     <h1 className='text-xs' >Book Name:</h1>
                     <Input
-                        {...register("bookName", {
+                        {...register("name", {
                             required: "Book name is required!",
                         })}
                         type='text'
-                        className={`border border-indigo-700 ${errors.bookName && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-1`} />
+                        className={`border border-indigo-700 ${errors.name && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-1`} />
                     {
-                        errors.bookName && <span style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} className='text-red-600' >{errors.bookName.message}</span>
+                        errors.name && <span style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} className='text-red-600' >{errors.name.message}</span>
                     }
                 </div>
                 <div className='flex flex-col text-[8px] w-full mt-1'>
@@ -77,6 +94,18 @@ const AddProduct = () => {
                         className={`border border-indigo-700 ${errors.discount && " border-opacity-50"} outline-none text-[10px] px-2 py-1`} />
                     {
                         errors.discount && <span style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} className='text-red-600' >{errors.discount.message}</span>
+                    }
+                </div>
+                <div className='flex flex-col text-[8px] w-full mt-1'>
+                    <h1 className='text-xs'>Discount Rate:</h1>
+                    <input
+                        {...register("isInStock", {
+                            required: "isInStock is required!",
+                        })}
+                        type='checkbox'
+                        className={`border border-indigo-700 ${errors.isInStock && " border-opacity-50"} outline-none text-[10px] px-2 py-1`} />
+                    {
+                        errors.isInStock && <span style={{ fontSize: "7px", paddingTop: "2px", paddingBottom: "2px", width: "100%" }} className='text-red-600' >{errors.isInStock.message}</span>
                     }
                 </div>
                 <div className='flex flex-col text-[8px] w-full mt-1'>

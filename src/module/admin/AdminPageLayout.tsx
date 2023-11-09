@@ -3,14 +3,30 @@ import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthLoginForm } from '@/module/auth/types/types';
 import { AddBook } from './types';
-import { Button, Tabs, TabList, Tab, TabPanel, TabPanels } from '@chakra-ui/react';
-import AddProduct from './components/AddProduct';
-import AllBooks from './components/AllBooks';
-import Customer from './components/Customer';
+import { Button, Tabs, TabList, Tab, TabPanel, TabPanels, Spinner } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
+import { useAppDispatch } from '@/core/hooks';
+import Loading from '@/package/components/Loading';
 
+const AddProduct = dynamic(() => import('./components/AddProduct'),
+    {
+        loading: () => <Loading/>
+    }
+)
+const AllBooks = dynamic(() => import('./components/AllBooks'),
+    {
+        loading: () => <Loading/>,
+    }
+)
+const Customer = dynamic(() => import('./components/Customer'),
+    {
+        loading: () => <Loading/>,
+    }
+)
 
 const AdminPageLayout = () => {
     const [activeMenuItem, setActiveMenuItem] = useState(''); // Varsayılan olarak hiçbiri seçili değil
+    const dispatch = useAppDispatch();
 
     const handleMenuItemClick = (item: string) => {
         setActiveMenuItem(item);

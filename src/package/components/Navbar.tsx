@@ -1,13 +1,15 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import SearchBox from "@/package/components/SearchBox";
-import SignOutUser from "@/package/components/SignOutUser";
 import Link from 'next/link';
+
 import { $auth, $cookie } from '../utils';
 import { useAppSelector } from '@/core/hooks';
-import Auth from './Auth';
 import { verifyJwtToken } from '../libs/auth';
+
+import Auth from './Auth';
+import SearchBox from "@/package/components/SearchBox";
+
 
 
 const Navbar = () => {

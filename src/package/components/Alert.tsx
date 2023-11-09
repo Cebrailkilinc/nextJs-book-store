@@ -2,17 +2,23 @@
 import React, { useEffect, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '@/core/hooks';
 import { alertControl } from '@/module/auth/slice/auth.slices';
+import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+} from '@chakra-ui/react'
 const AlertBox = () => {
 
     const dispatch = useAppDispatch();
     const [showAlert, setShowAlert] = useState(false);
-    const { expired, token, loginSuccess,message } = useAppSelector(state => state.auth)
+    const { expired, token, loginSuccess, message, infoType } = useAppSelector(state => state.auth)
 
-    
+
     useEffect(() => {
         const timeout: any = setTimeout(() => {
             dispatch(alertControl(false))
-        }, 3500);
+        }, 3000);
 
         return () => {
             clearTimeout(timeout);
@@ -21,9 +27,13 @@ const AlertBox = () => {
     }, [loginSuccess]);
 
     return (
-        <div className='absolute  top-20 left-20  max-w-[100px]' >
+        <div className='absolute  top-20 left-20 z-40 rounded-3xl' >
             {
-                loginSuccess && <span style={{ fontSize: "10px", width: "200px" }} >{message}</span>
+                loginSuccess &&
+                <Alert rounded={"xl"} fontSize={"xs"} status={infoType} variant='solid'>
+                    <AlertIcon />
+                    {message}
+                </Alert>
             }
         </div>
     )

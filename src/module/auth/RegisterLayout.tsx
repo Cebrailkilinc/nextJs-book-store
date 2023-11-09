@@ -4,14 +4,12 @@ import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthRegisterForm, AuthRegisterPost } from '@/module/auth/types/types'
 import AuthService from '@/package/services/auth/AuthService'
-import Cookies from 'universal-cookie'
 import { $auth, $cookie } from '@/package/utils'
 
 const RegisterLayout = () => {
 
     const router = useRouter();
-    const authService = new AuthService();
-    const cookies = new Cookies();
+    const authService = new AuthService();   
     const handleRedirect = () => {
         router.push('/dashboard/login'); // '/about' sayfasına yönlendirir
     };

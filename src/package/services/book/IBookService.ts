@@ -1,4 +1,5 @@
 export default interface IBookService{
     getAllBooks():void;
-    getUser():any
+    addBook(book: any):void;
+   
 }

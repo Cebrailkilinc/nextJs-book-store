@@ -1,5 +1,9 @@
 import React from 'react'
-import LoginLayout from '@/module/auth/LoginLayout'
+import dynamic from 'next/dynamic'
+ 
+// Client Components:
+const LoginLayout = dynamic(() => import('@/module/auth/LoginLayout'))
+
 
 const Login = () => {
   return (

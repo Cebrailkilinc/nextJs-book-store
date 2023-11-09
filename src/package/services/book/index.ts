@@ -8,5 +8,11 @@ export const fetchAllBooks = createAsyncThunk('books/fetchAllBooks', async () =>
   return getAllBooks;
 });
 
+export const addNewBook = async (book: any) => {
+  const bookService = new BookService();
+  const addBookResponse = bookService.addBook(book);
+  return addBookResponse;
+};
+
 
 

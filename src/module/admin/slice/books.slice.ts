@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import BookService from "@/package/services/book/BookService";
-import { fetchAllBooks} from "@/package/services/book/index"
+import { fetchAllBooks, addNewBook } from "@/package/services/book/index"
 import { GetAllBook } from "../types";
 import axios from "axios";
 
@@ -28,7 +28,7 @@ export const bookSlice = createSlice({
             .addCase(fetchAllBooks.rejected, (state, action) => {
                 state.loading = 'rejected';
                 state.error = action.error.message;
-            });
+            })
 
     },
 })

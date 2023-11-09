@@ -20,7 +20,8 @@ export type AuthResponse = {
     token: string;
     expired: boolean;
     loginSuccess:boolean;
-    message:string
+    message:string,
+    infoType:"loading" | "info" | "warning" | "success" | "error" | undefined
     
   }
   

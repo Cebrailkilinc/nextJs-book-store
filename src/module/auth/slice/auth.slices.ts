@@ -8,7 +8,8 @@ const initialState: AuthResponse = {
   token: "",
   expired: false,
   loginSuccess: false,
-  message:""
+  message:"",
+  infoType:undefined
 };
 
 
@@ -29,12 +30,15 @@ export const authSlice = createSlice({
     alertControl:(state, action) => {
       state.loginSuccess = action.payload
     },
+    alertTypeControl:(state, action)=>{
+      state.infoType = action.payload
+    }
 
   },
 
 });
 
-export const { userLoginUpdate, alertControl,messageControl } = authSlice.actions;
+export const { userLoginUpdate, alertControl,messageControl,alertTypeControl } = authSlice.actions;
 
 
 export default authSlice.reducer;
