@@ -5,7 +5,7 @@ import Navbar from '@/package/components/Navbar'
 import { Providers } from './providers'
 import Alert from '@/package/components/Alert'
 import { ChakraProvider } from '@chakra-ui/react'
-import { GlobalContextProvider } from './context'
+import { GlobalContextProvider } from './context/AlertContext'
 
 
 const inter = Inter({ subsets: ['latin'] })

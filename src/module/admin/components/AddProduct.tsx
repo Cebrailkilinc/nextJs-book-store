@@ -5,11 +5,10 @@ import { AuthLoginForm } from '@/module/auth/types/types';
 import { AddBook } from '@/module/admin/types/index';
 import { Button, Input } from '@chakra-ui/react';
 import { addNewBook } from '@/package/services/book';
-import { alertControl, alertTypeControl, messageControl } from '@/module/auth/slice/auth.slices';
 import { useAppDispatch } from '@/core/hooks';
-import Alert from "@/package/components/Alert"
+
 const AddProduct = () => {
-    const dispatch = useAppDispatch();
+
     const {
         register,
         handleSubmit,

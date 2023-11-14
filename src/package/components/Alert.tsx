@@ -8,31 +8,38 @@ import {
     AlertTitle,
     AlertDescription,
 } from '@chakra-ui/react'
+import { useGlobalContext } from '@/app/context/AlertContext';
 const AlertBox = () => {
 
-    const dispatch = useAppDispatch();
-    const [showAlert, setShowAlert] = useState(false);
-    const { expired, token, loginSuccess, message, infoType } = useAppSelector(state => state.auth)
+    const
+        {
+            openAlert,
+            alertMessage,
+            alertType,
+            setOpenAlert
+        } = useGlobalContext();
+
+
 
 
     useEffect(() => {
         const timeout: any = setTimeout(() => {
-            dispatch(alertControl(false))
+            setOpenAlert(false)
         }, 3000);
 
         return () => {
             clearTimeout(timeout);
         };
 
-    }, [loginSuccess]);
+    }, []);
 
     return (
         <div className='absolute  top-20 left-20 z-40 rounded-3xl' >
             {
-                loginSuccess &&
-                <Alert rounded={"xl"} fontSize={"xs"} status={infoType} variant='solid'>
+                openAlert &&
+                <Alert rounded={"xl"} fontSize={"xs"} status={alertType} variant='solid'>
                     <AlertIcon />
-                    {message}
+                    {alertMessage}
                 </Alert>
             }
         </div>
