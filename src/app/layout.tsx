@@ -5,6 +5,7 @@ import Navbar from '@/package/components/Navbar'
 import { Providers } from './providers'
 import Alert from '@/package/components/Alert'
 import { ChakraProvider } from '@chakra-ui/react'
+import { GlobalContextProvider } from './context'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,9 +28,11 @@ export default function RootLayout({
       <body className={inter.className}>
 
         <Providers>
-          <Navbar />
-          <Alert />
-          {children}
+          <GlobalContextProvider>
+            <Navbar />
+            <Alert />
+            {children}
+          </GlobalContextProvider>
         </Providers>
 
       </body>

@@ -39,7 +39,6 @@ const RegisterLayout = () => {
                 }               
                 reset();
             })
-
     }
 
     return (

@@ -68,9 +68,7 @@ const LoginLayout = () => {
           if (verifyJwtToken(res.data?.token)) {
             dispatch(userLoginUpdate(res.data?.success))
             $auth.createCookies(res.data.token)
-            $cookie.set("username", res.data.username)
-            dispatch(messageControl(res.data?.message))
-            dispatch(alertControl(true))
+            $cookie.set("username", res.data.username)          
             console.log(res.data)
             router.push('/')
           }

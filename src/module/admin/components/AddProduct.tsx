@@ -18,16 +18,10 @@ const AddProduct = () => {
     } = useForm<AddBook>()
 
     const onSubmit: SubmitHandler<AddBook> = (data) => {
-        addNewBook(data).then(res => {
-            
-            dispatch(messageControl("Kitap Eklendi!"))
-            dispatch(alertControl(true))
-            dispatch(alertTypeControl("success"))
-
+        addNewBook(data).then(res => {          
+            ///BURAYA ALERT MESAJI GELECEK
         }).catch(errors => {
-            dispatch(messageControl("Kitap Eklenemedi!!!"))
-            dispatch(alertControl(true))
-            dispatch(alertTypeControl("error"))
+           ///BURAYA ALERT MESAJI GELECEK
         })
 
 

@@ -15,23 +15,14 @@ import React from 'react'
 import { AdminModal } from '../../types'
 import { useAppSelector } from '@/core/hooks'
 import Loading from '@/package/components/Loading';
-
-const UpdateModal = dynamic(() => import('./UpdateModal'),
-    {
-        loading: () => <Loading />,
-    }
-)
-const DeleteModal = dynamic(() => import('./DeleteModal'),
-    {
-        loading: () => <Loading />,
-    }
-)
+import UpdateModal from './UpdateModal';
+import DeleteModal from './DeleteModal';
 
 
 const BookModal = (props: AdminModal) => {
     const { modalContent } = useAppSelector(state => state.adminModal)
     const finalRef = React.useRef(null)
-
+    console.log("bookModal render ediliyor")
     return (
         <>
             <Modal finalFocusRef={finalRef} isOpen={props.isOpen} onClose={props.onClose}>
@@ -47,4 +38,4 @@ const BookModal = (props: AdminModal) => {
     )
 }
 
-export default BookModal
+export default React.memo(BookModal);

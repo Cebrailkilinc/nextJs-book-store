@@ -40,3 +40,4 @@ const AlertBox = () => {
 }
 
 export default AlertBox;
+
