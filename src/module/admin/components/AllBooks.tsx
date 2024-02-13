@@ -1,23 +1,26 @@
 import { TableContainer, TableCaption, Thead, Table, Tbody, Th, Tr, Tfoot, Td, Button, useDisclosure } from '@chakra-ui/react'
 import React, { SetStateAction, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/core/hooks'
-import { fetchAllBooks } from '@/package/services/book/index'
 import { MdOutlineModeEditOutline, MdDelete } from "react-icons/md"
 import BookModal from './modals/BookModal'
 import { modalContentControl } from '../slice/admin.modal.slice'
-
+import { useQuery } from '@tanstack/react-query'
+import BookService from '@/package/services/book/BookService'
+import { getAllBook } from "@/module/admin/slice/books.slice"
 const AllBooks = () => {
     const dispatch = useAppDispatch();
-    const { data } = useAppSelector(state => state.books)
+    const { allBook } = useAppSelector(state => state.books)
+
     const [bookId, setBookId] = useState<any>("")
+
+    const bookService = new BookService();
 
     //Modal control states
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    useEffect(() => {
-        dispatch(fetchAllBooks())
-    }, [data])
-    
+    const { data, status,refetch } = useQuery({ queryKey: ['groups'], queryFn: bookService.getAllBooks })  
+   
+ 
 
     const handleDeleteModal = (id: String) => {
         setBookId(id)

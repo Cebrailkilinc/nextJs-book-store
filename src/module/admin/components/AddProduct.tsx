@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthLoginForm } from '@/module/auth/types/types';
 import { AddBook } from '@/module/admin/types/index';
 import { Button, Input } from '@chakra-ui/react';
-import { addNewBook } from '@/package/services/book';
 import { useAppDispatch } from '@/core/hooks';
 
 const AddProduct = () => {
@@ -17,14 +16,7 @@ const AddProduct = () => {
     } = useForm<AddBook>()
 
     const onSubmit: SubmitHandler<AddBook> = (data) => {
-        addNewBook(data).then(res => {          
-            ///BURAYA ALERT MESAJI GELECEK
-        }).catch(errors => {
-           ///BURAYA ALERT MESAJI GELECEK
-        })
-
-
-        console.log(data)
+    
     }
     return (
         <div>

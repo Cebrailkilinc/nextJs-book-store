@@ -26,7 +26,6 @@ export default function RootLayout({
         <link href="/public/output.css" rel="stylesheet" />
       </head>
       <body className={inter.className}>
-
         <Providers>
           <GlobalContextProvider>
             <Navbar />

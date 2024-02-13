@@ -7,7 +7,7 @@ export type AddBook = {
     isInStock:boolean
 }
 export type GetAllBook = {
-    data: any,
+    allBook: any,
     loading: string,
     success: boolean,
     error: string | undefined

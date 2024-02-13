@@ -33,7 +33,7 @@ const Navbar = () => {
     })
 
     return (
-        <div className='bg-gray-100  fixed w-full shadow-sm px-5 md:px-0' >
+        <div className='bg-gray-100  fixed w-full shadow-sm px-5 md:px-0 z-50' >
             <div className='max-w-5xl mx-auto flex justify-between items-center ' >
                 <div onClick={() => handleRedirect("/")} className='flex items-center gap-3 cursor-pointer' >
                     <img width="16" height="16" src="https://img.icons8.com/officel/16/homework.png" alt="homework" />

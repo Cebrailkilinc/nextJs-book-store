@@ -1,11 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import BookService from "@/package/services/book/BookService";
-import { fetchAllBooks, addNewBook } from "@/package/services/book/index"
+import { createSlice } from "@reduxjs/toolkit";
 import { GetAllBook } from "../types";
-import axios from "axios";
 
 const initialState: GetAllBook = {
-    data: [],
+    allBook: [],
     loading: '',
     success: false,
     error: ""
@@ -15,22 +12,11 @@ const initialState: GetAllBook = {
 export const bookSlice = createSlice({
     name: 'books',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchAllBooks.pending, (state) => {
-                state.loading = 'pending';
-            })
-            .addCase(fetchAllBooks.fulfilled, (state, action) => {
-                state.loading = 'fulfilled';
-                state.data = action.payload;
-            })
-            .addCase(fetchAllBooks.rejected, (state, action) => {
-                state.loading = 'rejected';
-                state.error = action.error.message;
-            })
-
+    reducers: {
+        getAllBook:(state,action)=>{
+            state.allBook = action.payload;
+        }
     },
 })
-
+export const { getAllBook } = bookSlice.actions;
 export default bookSlice.reducer;

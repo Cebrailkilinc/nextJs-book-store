@@ -14,6 +14,8 @@ import { verifyJwtToken } from '@/package/libs/auth';
 import { alertControl, userLoginUpdate, messageControl } from './slice/auth.slices';
 import { useAppDispatch } from '@/core/hooks';
 import { Button } from '@chakra-ui/react';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 const LoginLayout = () => {
 
@@ -51,6 +53,11 @@ const LoginLayout = () => {
     }
   }, []);
 
+  const fetchGroups = (): Promise<any> =>
+    axios.get('https://jsonplaceholder.typicode.com/todos').then((response) => response.data)
+
+  
+  console.log(status)
 
   const onSubmit: SubmitHandler<AuthLoginForm> = (data) => {
 
@@ -68,7 +75,7 @@ const LoginLayout = () => {
           if (verifyJwtToken(res.data?.token)) {
             dispatch(userLoginUpdate(res.data?.success))
             $auth.createCookies(res.data.token)
-            $cookie.set("username", res.data.username)          
+            $cookie.set("username", res.data.username)
             console.log(res.data)
             router.push('/')
           }
@@ -117,7 +124,7 @@ const LoginLayout = () => {
           })} type='password' placeholder='Password' className={`border ${errors.password && "border-red-500 border-opacity-50"} outline-none text-[10px] px-2 py-2`} />
         </div>
         <div className='flex flex-col items-center text-sm w-full' >
-        
+
           <Button
             isLoading={loading}
             loadingText='Loading'

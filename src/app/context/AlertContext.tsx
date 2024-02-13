@@ -25,9 +25,9 @@ const initialContextValues: ContextProps = {
 const GlobalContext = createContext<ContextProps>(initialContextValues);
 
 export const GlobalContextProvider = ({ children }: { children: ReactNode }) => {
-    const [openAlert, setOpenAlert] = useState<boolean>(true);
+    const [openAlert, setOpenAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
-    const [alertType, setAlertType] = useState<"info" | "warning" | "success" | "error" | "loading">("error")
+    const [alertType, setAlertType] = useState<"info" | "warning" | "success" | "error" | "loading">("info")
     return (
         <GlobalContext.Provider value={{
             openAlert,
