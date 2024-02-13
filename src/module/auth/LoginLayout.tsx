@@ -57,7 +57,7 @@ const LoginLayout = () => {
     axios.get('https://jsonplaceholder.typicode.com/todos').then((response) => response.data)
 
   
-  console.log(status)
+
 
   const onSubmit: SubmitHandler<AuthLoginForm> = (data) => {
 
